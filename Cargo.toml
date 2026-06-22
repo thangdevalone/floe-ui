@@ -1,0 +1,3 @@
+[workspace]
+members = ["floe-ui", "floe-ui-gallery"]
+resolver = "2"

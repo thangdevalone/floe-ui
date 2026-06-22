@@ -1,0 +1,10 @@
+/target/
+/floe-ui/target/
+/web-demo/.next/
+/web-demo/node_modules/
+/web-demo/out/
+/web-demo/build/
+**/*.rs.bk
+.env
+.env.local
+.DS_Store

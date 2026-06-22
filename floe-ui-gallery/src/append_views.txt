@@ -1,0 +1,226 @@
+
+    // ── Section: Icons ──────────────────────────────────────────────
+    fn view_icons<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        let all_icons = [
+            icon::IconName::AlertTriangle, icon::IconName::Check, icon::IconName::ChevronDown,
+            icon::IconName::ChevronLeft, icon::IconName::ChevronRight, icon::IconName::ChevronUp,
+            icon::IconName::CircleCheck, icon::IconName::CircleX, icon::IconName::Info,
+            icon::IconName::Minus, icon::IconName::Plus, icon::IconName::Search,
+            icon::IconName::Settings, icon::IconName::User, icon::IconName::X,
+        ];
+
+        let mut grid = column![].spacing(24);
+        for chunk in all_icons.chunks(5) {
+            let mut r = row![].spacing(32);
+            for ic in chunk {
+                r = r.push(icon::view(*ic).size(28).color(tokens.foreground));
+            }
+            grid = grid.push(r);
+        }
+
+        column![
+            typography::h2("Icons", tokens),
+            typography::muted("Built-in Lucide icons for the UI.", tokens),
+            separator::horizontal(tokens),
+            grid,
+        ]
+        .spacing(16)
+        .into()
+    }
+
+    // ── Section: Typography ─────────────────────────────────────────
+    fn view_typography<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        column![
+            typography::h2("Typography", tokens),
+            typography::muted("Styles for headings, paragraphs, and other text elements.", tokens),
+            separator::horizontal(tokens),
+            typography::h1("Heading 1", tokens),
+            typography::h2("Heading 2", tokens),
+            typography::h3("Heading 3", tokens),
+            typography::h4("Heading 4", tokens),
+            typography::p("This is a standard paragraph. Typography is essential in any UI design to establish hierarchy and readability. The quick brown fox jumps over the lazy dog.", tokens),
+            typography::lead("This is lead text. A bit larger and muted to serve as a subtitle.", tokens),
+            typography::large("Large Text", tokens),
+            typography::small("Small text for secondary details.", tokens),
+            typography::muted("Muted text for captions or disabled items.", tokens),
+        ]
+        .spacing(16)
+        .into()
+    }
+
+    // ── Section: Textareas ──────────────────────────────────────────
+    fn view_textareas<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        column![
+            typography::h2("Textarea", tokens),
+            typography::muted("Displays a form text area or a component that looks like a text area.", tokens),
+            separator::horizontal(tokens),
+            typography::large("Default", tokens),
+            textarea::styled(&self.textarea_content, Message::TextareaAction, tokens)
+                .height(150),
+        ]
+        .spacing(16)
+        .into()
+    }
+
+    // ── Section: Toggle Groups ──────────────────────────────────────
+    fn view_toggle_groups<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        column![
+            typography::h2("Toggle Group", tokens),
+            typography::muted("A set of two-state buttons that can be toggled.", tokens),
+            separator::horizontal(tokens),
+            typography::large("Alignment", tokens),
+            toggle_group::group(vec![
+                toggle_group::item(
+                    icon::view(icon::IconName::ChevronLeft).size(16),
+                    self.toggle_group_value == "left",
+                    toggle_group::ItemPosition::First,
+                    Message::ToggleGroupChanged("left".to_string()),
+                    tokens,
+                ),
+                toggle_group::item(
+                    icon::view(icon::IconName::Minus).size(16),
+                    self.toggle_group_value == "center",
+                    toggle_group::ItemPosition::Middle,
+                    Message::ToggleGroupChanged("center".to_string()),
+                    tokens,
+                ),
+                toggle_group::item(
+                    icon::view(icon::IconName::ChevronRight).size(16),
+                    self.toggle_group_value == "right",
+                    toggle_group::ItemPosition::Last,
+                    Message::ToggleGroupChanged("right".to_string()),
+                    tokens,
+                ),
+            ]),
+        ]
+        .spacing(16)
+        .into()
+    }
+
+    // ── Section: Tabs ───────────────────────────────────────────────
+    fn view_tabs<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        let tab_list = tabs::list(
+            vec![
+                tabs::tab("Account", self.active_tab == 0, Message::TabChanged(0), tokens),
+                tabs::tab("Password", self.active_tab == 1, Message::TabChanged(1), tokens),
+                tabs::tab("Settings", self.active_tab == 2, Message::TabChanged(2), tokens),
+            ],
+            tokens,
+        );
+
+        let tab_content = match self.active_tab {
+            0 => typography::p("Make changes to your account here. Click save when you're done.", tokens).into(),
+            1 => typography::p("Change your password here. After saving, you'll be logged out.", tokens).into(),
+            _ => typography::p("Manage your application settings.", tokens).into(),
+        };
+
+        column![
+            typography::h2("Tabs", tokens),
+            typography::muted("A set of layered sections of content.", tokens),
+            separator::horizontal(tokens),
+            tab_list,
+            card::styled(tab_content, tokens),
+        ]
+        .spacing(16)
+        .into()
+    }
+
+    // ── Section: Tables ─────────────────────────────────────────────
+    fn view_tables<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        column![
+            typography::h2("Table", tokens),
+            typography::muted("A responsive table component.", tokens),
+            separator::horizontal(tokens),
+            table::table(
+                vec![
+                    table::header_cell("Invoice", tokens),
+                    table::header_cell("Status", tokens),
+                    table::header_cell("Method", tokens),
+                    table::header_cell("Amount", tokens),
+                ],
+                vec![
+                    row![
+                        table::cell("INV001", tokens),
+                        table::cell("Paid", tokens),
+                        table::cell("Credit Card", tokens),
+                        table::cell("$250.00", tokens),
+                    ],
+                    row![
+                        table::cell("INV002", tokens),
+                        table::cell("Pending", tokens),
+                        table::cell("PayPal", tokens),
+                        table::cell("$150.00", tokens),
+                    ],
+                    row![
+                        table::cell("INV003", tokens),
+                        table::cell("Unpaid", tokens),
+                        table::cell("Bank Transfer", tokens),
+                        table::cell("$350.00", tokens),
+                    ],
+                ],
+                tokens
+            ),
+        ]
+        .spacing(16)
+        .into()
+    }
+
+    // ── Section: Skeletons ──────────────────────────────────────────
+    fn view_skeletons<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        column![
+            typography::h2("Skeleton", tokens),
+            typography::muted("Use to show a placeholder while content is loading.", tokens),
+            separator::horizontal(tokens),
+            row![
+                skeleton::circle(48.0, tokens),
+                column![
+                    skeleton::rect(200.0, 16.0, tokens),
+                    skeleton::rect(150.0, 16.0, tokens),
+                ].spacing(8),
+            ].spacing(16),
+        ]
+        .spacing(16)
+        .into()
+    }
+
+    // ── Section: Scroll Areas ───────────────────────────────────────
+    fn view_scroll_areas<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        let content = column![
+            typography::h4("Terms of Service", tokens),
+            typography::p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", tokens),
+            typography::p("Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", tokens),
+            typography::p("Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", tokens),
+            typography::p("Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", tokens),
+            typography::p("Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.", tokens),
+        ].spacing(12);
+
+        column![
+            typography::h2("Scroll Area", tokens),
+            typography::muted("Visually styled scrollbars matching the theme.", tokens),
+            separator::horizontal(tokens),
+            container(scroll_area::styled(content, tokens))
+                .height(200)
+                .style(card::default_style(tokens)),
+        ]
+        .spacing(16)
+        .into()
+    }
+
+    // ── Section: Pagination ─────────────────────────────────────────
+    fn view_pagination<'a>(&'a self, tokens: &'a DesignTokens) -> Element<'a, Message> {
+        column![
+            typography::h2("Pagination", tokens),
+            typography::muted("Pagination with page navigation, next and previous links.", tokens),
+            separator::horizontal(tokens),
+            pagination::pagination(vec![
+                pagination::previous(Some(Message::Noop), tokens),
+                pagination::item("1", true, Message::Noop, tokens),
+                pagination::item("2", false, Message::Noop, tokens),
+                pagination::item("3", false, Message::Noop, tokens),
+                pagination::ellipsis(tokens),
+                pagination::next(Some(Message::Noop), tokens),
+            ]),
+        ]
+        .spacing(16)
+        .into()
+    }

@@ -1,0 +1,9 @@
+[package]
+name = "floe-ui-gallery"
+version = "0.1.0"
+edition = "2021"
+description = "Interactive showcase for Floe UI components"
+
+[dependencies]
+iced = { version = "0.14", features = ["advanced"] }
+floe-ui = { path = "../floe-ui" }
