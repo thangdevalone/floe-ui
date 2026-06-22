@@ -19,14 +19,14 @@ export default function DocsPage() {
           It is highly inspired by the popular React library <strong>shadcn/ui</strong>.
         </p>
         <p className="leading-7">
-          <strong>This is NOT a component library.</strong> It's a collection of components 
+          <strong>This is NOT a component library.</strong> It&apos;s a collection of components 
           that you can copy and paste directly into your Iced apps.
         </p>
       </div>
 
       <div className="space-y-4 pt-8">
         <h2 className="scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight">
-          What do you mean by "not a component library"?
+          What do you mean by &quot;not a component library&quot;?
         </h2>
         <p className="leading-7">
           I mean you do not install it as a dependency from Crates.io (though we might provide a core traits crate in the future).

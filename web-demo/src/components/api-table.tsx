@@ -28,7 +28,7 @@ export function ApiTable({ title, props, className }: ApiTableProps) {
             </tr>
           </thead>
           <tbody>
-            {props.map((prop, i) => (
+            {props.map((prop) => (
               <tr
                 key={prop.name}
                 className={cn(
