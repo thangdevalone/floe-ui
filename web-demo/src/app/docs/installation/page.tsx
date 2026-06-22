@@ -97,8 +97,13 @@ floe-ui add card`}
                 Import the prelude and start building your UI.
               </p>
               <CodeBlock
-                code={`use floe_ui::prelude::*;
+                code={`mod floe_ui; // Khai báo module đã được CLI tạo ra
+
+use floe_ui::prelude::*;
 use floe_ui::components::{button, card, input};
+
+use iced::widget::column;
+use iced::Element;
 
 fn view(&self) -> Element<Message> {
     let theme = FloeTheme::zinc_dark();
