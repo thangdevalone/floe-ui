@@ -352,6 +352,35 @@ let dropdown_widget = dropdown::Dropdown::new(
     builderFunctions: ["Dropdown::new(base, menu, is_open)", "dropdown_menu(content, tokens)", "dropdown_item(content, on_press, tokens)"],
   },
 
+  icon: {
+    name: "Icon",
+    slug: "icon",
+    description: "A wrapper around Iced's text widget using the Lucide icon font.",
+    category: "Data Display",
+    preview: (
+      <div className="flex flex-wrap gap-4 items-center justify-center p-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+      </div>
+    ),
+    code: `use floe_ui::components::icon::{self, IconName};
+
+// Basic icon
+let my_icon = icon::view(IconName::Info);
+
+// Icon with custom size and color
+let styled_icon = icon::view(IconName::Check)
+    .size(24)
+    .style(iced::theme::Text::Color(iced::Color::from_rgb(0.0, 0.8, 0.0)));`,
+    apiProps: [
+      { name: "name", type: "IconName", description: "The Lucide icon to display" },
+    ],
+    styleFunctions: [],
+    builderFunctions: ["view(name)"],
+  },
+
   input: {
     name: "Input",
     slug: "input",
