@@ -363,7 +363,12 @@ let dropdown_widget = dropdown::Dropdown::new(
         <IconGallery />
       </div>
     ),
-    code: `use floe_ui::components::icon::{self, IconName};
+    code: `use floe_ui::components::icon::{self, IconName, LUCIDE_FONT_BYTES};
+
+// ⚠️ CRITICAL: You MUST load the Lucide font in your app setup!
+// iced::application("My App", update, view)
+//     .font(LUCIDE_FONT_BYTES) // <--- Add this!
+//     .run();
 
 // Basic icon
 let my_icon = icon::view(IconName::Info);
